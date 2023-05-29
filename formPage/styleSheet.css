@@ -1,0 +1,44 @@
+
+body {
+    background-image : url('backgroundImage.jpeg');
+    background-repeat : no-repeat;
+    background-size : cover;
+    
+    }
+    
+.box{
+    
+    background-color: white;
+    border-width: 2px;
+    border-style : solid;
+    border-color : #FF8000;
+    height : 520px;
+    width : 600px;
+    margin:auto;
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 20px;
+
+    }
+    h3{
+        padding-top: 10px;
+        text-align : center;
+    }
+    p {
+        text-align : center;
+    }
+
+    hr {
+        top: 10px;
+        height: 2px;
+        background: rgb(12, 11, 11);
+        margin-bottom: 50px;    }
+
+input {
+    font-size:5px;
+    color : black;
+}
+label{
+    font-size : 15px;
+}
+
