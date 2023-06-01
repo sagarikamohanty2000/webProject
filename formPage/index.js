@@ -27,12 +27,18 @@ function myFunction(event)
              deleteBtn.className='btn btn-danger btn-sm delete';
              deleteBtn.appendChild(document.createTextNode('Delete'));
                 
+             var editBtn = document.createElement('button');
+             editBtn.className='btn btn-basic btn-sm edit';
+             editBtn.appendChild(document.createTextNode('Edit'));
+
              newli.appendChild(document.createTextNode(nam));
              newli.appendChild(document.createTextNode('-'));
              newli.appendChild(document.createTextNode(email));
              newli.appendChild(document.createTextNode('-'));
              newli.appendChild(document.createTextNode(phone));
+             newli.appendChild(document.createTextNode('-'));
              newli.appendChild(deleteBtn);
+             newli.appendChild(editBtn);
              ulTag.appendChild(newli);
     
              
@@ -42,7 +48,7 @@ function myFunction(event)
         }
 
         ulTag.addEventListener('click',removeUser);
-
+        ulTag.addEventListener('click',editUser);
     function removeUser(e)
 {
     if(e.target.classList.contains('delete'))
@@ -51,19 +57,47 @@ function myFunction(event)
         {
             var li = e.target.parentElement;
             var email = li.textContent;
+            var emailContent = email.split("-")
+
+            //populate the Values
+            document.getElementById('fName').value =emailContent[0];
+            document.getElementById('fEmail').value =emailContent[1];
+            document.getElementById('fPhone').value =emailContent[2];
+            
             //removes from list
             ulTag.removeChild(li);
             
             //removes from local storage
-            for(var i=0; i<localStorage.length; i++)
-            {
-                if(email.includes(localStorage.key(i)) != -1)
-            
-            localStorage.removeItem(`${localStorage.key(i)}`);
+            localStorage.removeItem(`${emailContent[1]}`);
             }
-        }
+            
     }
 }
+
+function editUser(e)
+{
+    if(e.target.classList.contains('edit'))
+    {
+            var li = e.target.parentElement;
+            var email = li.textContent;
+            var emailContent = email.split("-")
+
+            //populate the Values
+            document.getElementById('fName').value =emailContent[0];
+            document.getElementById('fEmail').value =emailContent[1];
+            document.getElementById('fPhone').value =emailContent[2];
+            
+            //removes from list
+            ulTag.removeChild(li);
+            
+            //removes from local storage
+            localStorage.removeItem(`${emailContent[1]}`);
+            }
+            
+         
+
+    }
+
 
     
 
