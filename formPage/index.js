@@ -12,10 +12,9 @@ function myFunction(event)
              userDetail.set('Phone',document.getElementById('fPhone').value);
              userDetail.set('Date',document.getElementById('fDate').value);
              userDetail.set('Time',document.getElementById('fTime').value);
-            console.log(userDetail);
 
-             var random = Math.random();
-             localStorage.setItem(`userDetail${random}`,JSON.stringify(Array.from(userDetail)));
+             var user_serialized = JSON.stringify(Array.from(userDetail));
+             localStorage.setItem("UserDetail",user_serialized);
         }
     
 
