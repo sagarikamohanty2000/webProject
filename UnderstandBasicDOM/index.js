@@ -111,25 +111,25 @@
 
 // Add Delete Button
 
-var itemList = document.getElementsByTagName('li');
+// var itemList = document.getElementsByTagName('li');
 
-for(var i=0;i<itemList.length; i++){
-var deleteBtn = document.createElement('button');
-deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
-deleteBtn.appendChild(document.createTextNode('X'));
-itemList[i].appendChild(deleteBtn);
-}
+// for(var i=0;i<itemList.length; i++){
+// var deleteBtn = document.createElement('button');
+// deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+// deleteBtn.appendChild(document.createTextNode('X'));
+// itemList[i].appendChild(deleteBtn);
+// }
 
-for(var i=0; i<itemList.length; i++)
-{
-    var editBtn = document.createElement('button');
-    editBtn.className = 'btn btn-default btn-sm float-right edit';
-    editBtn.appendChild(document.createTextNode('Edit'));
-    itemList[i].appendChild(editBtn);
-}
+// for(var i=0; i<itemList.length; i++)
+// {
+//     var editBtn = document.createElement('button');
+//     editBtn.className = 'btn btn-default btn-sm float-right edit';
+//     editBtn.appendChild(document.createTextNode('Edit'));
+//     itemList[i].appendChild(editBtn);
+// }
 
-var itemList2 = document.getElementById('items');
-itemList2.addEventListener('click', removeItem);
+// var itemList2 = document.getElementById('items');
+// itemList2.addEventListener('click', removeItem);
 
 function removeItem(e)
 {
@@ -138,9 +138,55 @@ function removeItem(e)
         if(confirm('Do you want to delete'))
         {
             var li = e.target.parentElement;
-            itemList2.removeChild(li);
+            itemList.removeChild(li);
         }
     }
 }
-    
-    
+var itemList = document.getElementById('items');
+var form = document.getElementById('addForm');
+var filter = document.getElementById('filter');
+
+form.addEventListener('submit',addItem);
+itemList.addEventListener('click',removeItem);
+filter.addEventListener('keyup',filterItem)
+
+function addItem(e)
+{
+    e.preventDefault();
+    var newItem = document.getElementById('item').value;
+    var li = document.createElement('li');
+    li.className = 'list-group-item';
+    li.appendChild(document.createTextNode(newItem));
+
+    var newDescription = document.getElementById('description').value;
+    li.appendChild(document.createTextNode(newDescription));
+    console.log(li);
+
+    var deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+    deleteBtn.appendChild(document.createTextNode('X'));
+    li.appendChild(deleteBtn);
+    itemList.appendChild(li);
+
+    var editBtn = document.createElement('button');
+    editBtn.className = 'btn btn-sm float-right edit';
+    editBtn.appendChild(document.createTextNode('Edit'));
+    li.appendChild(editBtn);
+    itemList.appendChild(li);
+}
+
+function filterItem(e)
+{
+     var text = e.target.value.toLowerCase();
+     var items = itemList.getElementsByTagName('li');
+     //Convet to an array
+     Array.from(items).forEach(function(item){
+        var itemName = item.textContent;
+        if(itemName.toLowerCase().includes(text)){
+            item.style.display='block';
+        }
+        else {
+            item.style.display='none';
+        }
+     })
+}
