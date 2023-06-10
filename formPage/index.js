@@ -59,32 +59,32 @@ function myFunction(event)
              .catch((err) => console.log(err))
         }
 
-        ulTag.addEventListener('click',removeUser);
+       // ulTag.addEventListener('click',removeUser);
         ulTag.addEventListener('click',editUser);
-    function removeUser(e)
-{
-    if(e.target.classList.contains('delete'))
-    {
-        if(confirm('Do you want to delete'))
-        {
-            var li = e.target.parentElement;
-            var email = li.textContent;
-            var emailContent = email.split("-")
+//     function removeUser(e)
+// {
+//     if(e.target.classList.contains('delete'))
+//     {
+//         if(confirm('Do you want to delete'))
+//         {
+//             var li = e.target.parentElement;
+//             var email = li.textContent;
+//             var emailContent = email.split("-")
 
-            //populate the Values
-            document.getElementById('fName').value =emailContent[0];
-            document.getElementById('fEmail').value =emailContent[1];
-            document.getElementById('fPhone').value =emailContent[2];
+//             //populate the Values
+//             document.getElementById('fName').value =emailContent[0];
+//             document.getElementById('fEmail').value =emailContent[1];
+//             document.getElementById('fPhone').value =emailContent[2];
             
-            //removes from list
-            ulTag.removeChild(li);
+//             //removes from list
+//             ulTag.removeChild(li);
             
-            //removes from local storage
-            localStorage.removeItem(`${emailContent[1]}`);
-            }
+//             //removes from local storage
+//             localStorage.removeItem(`${emailContent[1]}`);
+//             }
             
-    }
-}
+//     }
+// }
 
 function editUser(e)
 {
@@ -134,6 +134,15 @@ function editUser(e)
              var deleteBtn = document.createElement('button');
              deleteBtn.className='btn btn-danger btn-sm delete';
              deleteBtn.appendChild(document.createTextNode('Delete'));
+             deleteBtn.onclick=()=>{
+                axios.delete(`https://crudcrud.com/api/768d6ccc96bf473689a2dd8b374dd688/appointmentDetails/${obj._id}`)
+                .then((response) =>  console.log(response))
+                .catch(err => console.log(err));
+
+                //var li = nam.parentElement;
+                ulTag.removeChild(newli);
+                
+             }
                 
              var editBtn = document.createElement('button');
              editBtn.className='btn btn-basic btn-sm edit';
