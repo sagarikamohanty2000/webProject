@@ -7,13 +7,22 @@ function myFunction(event)
     event.preventDefault();
             console.log(event.target.fname.value)
             alert("The form is submited");
+            const nameUser = event.target.fname.value;
+            const emailid = event.target.femail.value;
+            const ph = event.target.fPhone.value;
 
-             let userDetail = new Map();
-             userDetail.set('Name',document.getElementById('fName').value);
-             userDetail.set('Email',document.getElementById('fEmail').value);
-             userDetail.set('Phone',document.getElementById('fPhone').value);
-             userDetail.set('Date',document.getElementById('fDate').value);
-             userDetail.set('Time',document.getElementById('fTime').value);
+            const obj ={
+                nameUser,
+                emailid,
+                ph
+            }
+
+            //  let userDetail = new Map();
+            //  userDetail.set('Name',document.getElementById('fName').value);
+            //  userDetail.set('Email',document.getElementById('fEmail').value);
+            //  userDetail.set('Phone',document.getElementById('fPhone').value);
+            //  userDetail.set('Date',document.getElementById('fDate').value);
+            //  userDetail.set('Time',document.getElementById('fTime').value);
 
              
              var newli = document.createElement('li');
@@ -43,8 +52,11 @@ function myFunction(event)
     
              
            
-             var user_serialized = JSON.stringify(Array.from(userDetail));
-             localStorage.setItem(`${email}`,user_serialized);
+             //var user_serialized = JSON.stringify(Array.from(userDetail));
+             //localStorage.setItem(`${email}`,user_serialized);
+             axios.post("https://crudcrud.com/api/768d6ccc96bf473689a2dd8b374dd688/appointmentDetails", obj)
+             .then((response) => console.log(response))
+             .catch((err) => console.log(err))
         }
 
         ulTag.addEventListener('click',removeUser);
