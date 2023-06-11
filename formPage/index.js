@@ -60,7 +60,7 @@ function myFunction(event)
         }
 
        // ulTag.addEventListener('click',removeUser);
-        ulTag.addEventListener('click',editUser);
+       /// ulTag.addEventListener('click',editUser);
 //     function removeUser(e)
 // {
 //     if(e.target.classList.contains('delete'))
@@ -86,29 +86,29 @@ function myFunction(event)
 //     }
 // }
 
-function editUser(e)
-{
-    if(e.target.classList.contains('edit'))
-    {
-            var li = e.target.parentElement;
-            var email = li.textContent;
-            var emailContent = email.split("-")
+// function editUser(e)
+// {
+//     if(e.target.classList.contains('edit'))
+//     {
+//             var li = e.target.parentElement;
+//             var email = li.textContent;
+//             var emailContent = email.split("-")
 
-            //populate the Values
-            document.getElementById('fName').value =emailContent[0];
-            document.getElementById('fEmail').value =emailContent[1];
-            document.getElementById('fPhone').value =emailContent[2];
+//             //populate the Values
+//             document.getElementById('fName').value =emailContent[0];
+//             document.getElementById('fEmail').value =emailContent[1];
+//             document.getElementById('fPhone').value =emailContent[2];
             
-            //removes from list
-            ulTag.removeChild(li);
+//             //removes from list
+//             ulTag.removeChild(li);
             
-            //removes from local storage
-            localStorage.removeItem(`${emailContent[1]}`);
-            }
+//             //removes from local storage
+//             localStorage.removeItem(`${emailContent[1]}`);
+//             }
             
          
 
-    }
+//     }
 
     window.onload = () => {
         axios.get("https://crudcrud.com/api/768d6ccc96bf473689a2dd8b374dd688/appointmentDetails")
@@ -134,19 +134,46 @@ function editUser(e)
              var deleteBtn = document.createElement('button');
              deleteBtn.className='btn btn-danger btn-sm delete';
              deleteBtn.appendChild(document.createTextNode('Delete'));
-             deleteBtn.onclick=()=>{
+             deleteBtn.onclick=(event)=>{
                 axios.delete(`https://crudcrud.com/api/768d6ccc96bf473689a2dd8b374dd688/appointmentDetails/${obj._id}`)
                 .then((response) =>  console.log(response))
                 .catch(err => console.log(err));
 
-                //var li = nam.parentElement;
-                ulTag.removeChild(newli);
+                var li = event.target.parentElement;
+                ulTag.removeChild(li);
                 
              }
                 
              var editBtn = document.createElement('button');
              editBtn.className='btn btn-basic btn-sm edit';
              editBtn.appendChild(document.createTextNode('Edit'));
+             editBtn.onclick=(event)=>{
+
+                document.getElementById('fName').value =obj.nameUser;
+                document.getElementById('fEmail').value =obj.emailid;
+                document.getElementById('fPhone').value =obj.ph;
+
+
+                const newnameUser = document.getElementById('fName').value;
+                const newemailid = document.getElementById('fEmail').value;
+                const newph = document.getElementById('fPhone').value;
+              
+
+                const newobj ={
+                    newnameUser,
+                    newemailid,
+                    newph
+                }
+
+                axios.patch(`https://crudcrud.com/api/768d6ccc96bf473689a2dd8b374dd688/appointmentDetails/${obj._id}`,newobj)
+                .then((response) =>  console.log(response))
+                .catch(err => console.log(err));
+            
+
+                var li = event.target.parentElement;
+                ulTag.removeChild(li);
+                
+             }
 
              newli.appendChild(document.createTextNode(nam));
              newli.appendChild(document.createTextNode('-'));
