@@ -126,6 +126,7 @@ function myFunction(event)
     {
              var newli = document.createElement('li');
              newli.className='list-user'; 
+             newli.id=`${obj._id}`;
 
              var nam = obj.nameUser;//document.getElementById('fName').value;
              var email = obj.emailid;//document.getElementById('fEmail').value;
@@ -136,11 +137,15 @@ function myFunction(event)
              deleteBtn.appendChild(document.createTextNode('Delete'));
              deleteBtn.onclick=(event)=>{
                 axios.delete(`https://crudcrud.com/api/768d6ccc96bf473689a2dd8b374dd688/appointmentDetails/${obj._id}`)
-                .then((response) =>  console.log(response))
+                .then((response) => 
+                {
+                   var li = document.getElementById(`${obj._id}`);
+                   ulTag.removeChild(li)
+                })
                 .catch(err => console.log(err));
 
-                var li = event.target.parentElement;
-                ulTag.removeChild(li);
+                // var li = document.getElementById(`${obj._id}`);
+                // ulTag.removeChild(li);
                 
              }
                 
@@ -166,12 +171,17 @@ function myFunction(event)
                 }
 
                 axios.patch(`https://crudcrud.com/api/768d6ccc96bf473689a2dd8b374dd688/appointmentDetails/${obj._id}`,newobj)
-                .then((response) =>  console.log(response))
+                .then((response) =>  
+                {
+                    // var li = document.getElementById(`${obj._id}`);
+                    // ulTag.removeChild(li);
+                    
+                })
                 .catch(err => console.log(err));
             
 
-                var li = event.target.parentElement;
-                ulTag.removeChild(li);
+                // var li = document.getElementById(`${obj._id}`);
+                // ulTag.removeChild(li);
                 
              }
 
