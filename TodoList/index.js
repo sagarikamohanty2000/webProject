@@ -12,10 +12,9 @@ function myFunction(event) {
                description,
                is_done
             }
-
             showListOnScreen(obj);
-
-            axios.post("https://crudcrud.com/api/7ea7f68aee7f4cba892a4e5593b6fe62/todoDetails",obj) // api link to be added
+            
+            axios.post("https://crudcrud.com/api/7ea7f68aee7f4cba892a4e5593b6fe62/todoDetails",obj)
             .then((response) => console.log(response))
             .catch((err) => console.log(err))
 }
@@ -29,7 +28,7 @@ function showListOnScreen(obj) {
     deleteBtn.className='btn btn-danger btn-sm delete';
     deleteBtn.appendChild(document.createTextNode('X'));
     deleteBtn.onclick=()=>{
-       axios.delete(`https://crudcrud.com/api/7ea7f68aee7f4cba892a4e5593b6fe62/todoDetails/${obj._id}`) //api tobe added
+       axios.delete(`https://crudcrud.com/api/7ea7f68aee7f4cba892a4e5593b6fe62/todoDetails/${obj._id}`)
        .then((response) => 
        {
           var li = document.getElementById(`${obj._id}`);
@@ -56,7 +55,7 @@ function showListOnScreen(obj) {
                 is_done
              }
             
-        axios.put(`https://crudcrud.com/api/7ea7f68aee7f4cba892a4e5593b6fe62/todoDetails/${id}`,obj) // api link to be added
+        axios.put(`https://crudcrud.com/api/7ea7f68aee7f4cba892a4e5593b6fe62/todoDetails/${id}`,obj)
         .then((response) => console.log(response))
         .catch((err) => console.log(err))
        
