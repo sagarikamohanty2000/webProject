@@ -1,5 +1,5 @@
 
-function myFunction(event) {
+async function myFunction(event) {
 
     event.preventDefault();
     alert("Add the item to Todo Remain List");
@@ -14,12 +14,16 @@ function myFunction(event) {
             }
             showListOnScreen(obj);
             
-            axios.post("https://crudcrud.com/api/7ea7f68aee7f4cba892a4e5593b6fe62/todoDetails",obj)
-            .then((response) => console.log(response))
-            .catch((err) => console.log(err))
+            try {
+            const res = await axios.post("https://crudcrud.com/api/4fa11b2370864bc6bbd0abe20d68bda3/todoDetails",obj);
+             console.log(response)
+            }
+            catch(error)
+            {console.log(error)
+            }
 }
 
-function showListOnScreen(obj) {
+ function showListOnScreen(obj) {
 
     const ulTag = document.getElementById('false');
     const ulTag2 = document.getElementById('true');
@@ -27,20 +31,23 @@ function showListOnScreen(obj) {
     const deleteBtn = document.createElement('button')
     deleteBtn.className='btn btn-danger btn-sm delete';
     deleteBtn.appendChild(document.createTextNode('X'));
-    deleteBtn.onclick=()=>{
-       axios.delete(`https://crudcrud.com/api/7ea7f68aee7f4cba892a4e5593b6fe62/todoDetails/${obj._id}`)
-       .then((response) => 
-       {
+    deleteBtn.onclick = (async () => {
+     
+      try{
+       const res = await axios.delete(`https://crudcrud.com/api/4fa11b2370864bc6bbd0abe20d68bda3/todoDetails/${obj._id}`);
           var li = document.getElementById(`${obj._id}`);
           ulTag.removeChild(li)
-       })
-       .catch(err => console.log(err));
+       }
+       catch(err) {
+          console.log(err);
     }
+   })
+   
 
     var editBtn = document.createElement('button');
     editBtn.className='btn btn-basic btn-sm edit';
     editBtn.appendChild(document.createTextNode('✓'));
-    editBtn.onclick=()=>{        
+    editBtn.onclick=(async () =>{        
         const id = `${obj._id}`;
         var li = document.getElementById(`${obj._id}`);
         ulTag.removeChild(li)
@@ -54,15 +61,20 @@ function showListOnScreen(obj) {
                 description,
                 is_done
              }
-            
-        axios.put(`https://crudcrud.com/api/7ea7f68aee7f4cba892a4e5593b6fe62/todoDetails/${id}`,obj)
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err))
-       
+            try {
+       const response =  await axios.put(`https://crudcrud.com/api/4fa11b2370864bc6bbd0abe20d68bda3/todoDetails/${id}`,obj);
+        console.log(response)
         li.removeChild(deleteBtn);
         li.removeChild(editBtn);
-        ulTag2.appendChild(li);                           
-    }
+        ulTag2.appendChild(li);
+            }
+        catch(error){
+         console.log(err)
+        }
+      })
+       
+                                  
+   
     
     if(obj.is_done == false){
     const newLi = document.createElement('li');
@@ -85,14 +97,18 @@ function showListOnScreen(obj) {
         }
 }
 
-window.onload = () => {
-    axios.get("https://crudcrud.com/api/7ea7f68aee7f4cba892a4e5593b6fe62/todoDetails")
-    .then((response) => { console.log(response) 
+window.onload = (async () => {
+   try { 
+   const response = await axios.get("https://crudcrud.com/api/4fa11b2370864bc6bbd0abe20d68bda3/todoDetails")
+     console.log(response) 
     for(var i=0; i<response.data.length; i++)
     {
        showListOnScreen(response.data[i])
     }
-})
-    
-    .catch(err => console.log(err))
 }
+    
+   catch(error) 
+   {
+      console.log(error)
+   }
+})
